@@ -1,0 +1,114 @@
+[
+  {
+    "id": "loc1",
+    "nombre": "I Brigada Aérea (El Palomar)",
+    "tipo": "Brigada Aérea / Base",
+    "ubicacion": "El Palomar, Buenos Aires",
+    "latitud": -34.60972321367738,
+    "longitud": -58.60056453080691
+  },
+  {
+    "id": "loc2",
+    "nombre": "II Brigada Aérea (Paraná)",
+    "tipo": "Brigada Aérea / Base",
+    "ubicacion": "Paraná, Entre Ríos",
+    "latitud": -31.78009033506975,
+    "longitud": -60.473011232171196
+  },
+  {
+    "id": "loc3",
+    "nombre": "III Brigada Aérea (Reconquista)",
+    "tipo": "Brigada Aérea / Base",
+    "ubicacion": "Reconquista, Santa Fe",
+    "latitud": -29.190877765090455,
+    "longitud": -59.68509069814552
+  },
+  {
+    "id": "loc4",
+    "nombre": "IV Brigada Aérea (El Plumerillo)",
+    "tipo": "Brigada Aérea / Base",
+    "ubicacion": "El Plumerillo, Mendoza",
+    "latitud": -32.8416970662607,
+    "longitud": -68.80174262839583
+  },
+  {
+    "id": "loc5",
+    "nombre": "V Brigada Aérea (Villa Reynolds)",
+    "tipo": "Brigada Aérea / Base",
+    "ubicacion": "Villa Mercedes / Villa Reynolds, San Luis",
+    "latitud": -33.7220159726821,
+    "longitud": -65.38078715841402
+  },
+  {
+    "id": "loc6",
+    "nombre": "VI Brigada Aérea (Tandil)",
+    "tipo": "Brigada Aérea / Base",
+    "ubicacion": "Tandil, Buenos Aires",
+    "latitud": -37.23397589005851,
+    "longitud": -59.228475026981855
+  },
+  {
+    "id": "loc7",
+    "nombre": "Base Aérea Militar Morón",
+    "tipo": "Base Aérea",
+    "ubicacion": "Morón, Buenos Aires",
+    "latitud": -34.55737640093594,
+    "longitud": -58.78253182819034
+  },
+  {
+    "id": "loc8",
+    "nombre": "IX Brigada Aérea (Comodoro Rivadavia)",
+    "tipo": "Brigada Aérea / Base",
+    "ubicacion": "Comodoro Rivadavia, Chubut",
+    "latitud": -45.79035406577,
+    "longitud": -67.47580158737657
+  },
+  {
+    "id": "loc9",
+    "nombre": "X Brigada Aérea (Río Gallegos)",
+    "tipo": "Brigada Aérea / Base",
+    "ubicacion": "Río Gallegos, Santa Cruz",
+    "latitud": -51.60889,
+    "longitud": -69.31222
+  },
+  {
+    "id": "loc10",
+    "nombre": "Base Aérea Militar Mar del Plata",
+    "tipo": "Base Aérea",
+    "ubicacion": "Mar del Plata, Buenos Aires",
+    "latitud": -37.942838466837294,
+    "longitud": -57.58293311843357
+  },
+  {
+    "id": "loc11",
+    "nombre": "Área Logística Córdoba",
+    "tipo": "Área Logística",
+    "ubicacion": "Córdoba, Córdoba",
+    "latitud": -31.433378113463135,
+    "longitud": -64.26327713032934
+  },
+  {
+    "id": "loc12",
+    "nombre": "Área Logística Palomar",
+    "tipo": "Área Logística",
+    "ubicacion": "El Palomar, Buenos Aires",
+    "latitud": -34.61609887716853,
+    "longitud": -58.60202360322615
+  },
+  {
+    "id": "loc13",
+    "nombre": "Área de Material Quilmes",
+    "tipo": "Área de Material",
+    "ubicacion": "Quilmes, Buenos Aires",
+    "latitud": -34.710912341806136,
+    "longitud": -58.246946632058595
+  },
+  {
+    "id": "loc14",
+    "nombre": "Área de Material Río Cuarto",
+    "tipo": "Área de Material",
+    "ubicacion": "Río Cuarto, Córdoba",
+    "latitud": -33.08040770544986,
+    "longitud": -64.27272896306485
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "NAFTA": 1566,
+  "ULTRA": 1601,
+  "INFINIA_DIESEL": 1809,
+  "last_updated": "2025-01-21",
+  "source": "naftas.com.ar",
+  "labels": {
+    "NAFTA": "Nafta Super",
+    "ULTRA": "Gasoil (Diesel Común)",
+    "INFINIA_DIESEL": "Infinia Diesel (Euro)"
+  }
+}
