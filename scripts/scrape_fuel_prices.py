@@ -216,7 +216,7 @@ def save_prices(prices):
         "source": "naftas.com.ar",
         "labels": {
             "NAFTA": "Nafta Super",
-            "ULTRA": "Gasoil (Diesel Común)",
+            "ULTRA": "Gasoil",
             "INFINIA_DIESEL": "Infinia Diesel (Euro)"
         }
     }

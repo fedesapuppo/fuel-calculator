@@ -95,7 +95,7 @@ function getRouteCacheKey(originId, destinationId) {
 function getFuelTypeLabel(fuelType) {
     const labels = {
         'NAFTA': 'Nafta Super',
-        'ULTRA': 'Gasoil (Diesel Común)',
+        'ULTRA': 'Gasoil',
         'INFINIA_DIESEL': 'Infinia Diesel'
     };
     return labels[fuelType] || fuelType;
