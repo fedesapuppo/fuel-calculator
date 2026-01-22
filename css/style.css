@@ -1,0 +1,178 @@
+/* Custom styles for Fuel Calculator */
+
+/* Searchable Dropdown Styles */
+.searchable-dropdown {
+    position: relative;
+}
+
+.dropdown-input {
+    cursor: pointer;
+}
+
+.dropdown-input:focus {
+    cursor: text;
+}
+
+.dropdown-list {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+.dropdown-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.dropdown-list::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+.dropdown-list::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+.dropdown-item {
+    padding: 0.625rem 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:hover,
+.dropdown-item.highlighted {
+    background-color: #e0e7ff;
+}
+
+.dropdown-item.selected {
+    background-color: #1e3a5f;
+    color: white;
+}
+
+.dropdown-item-title {
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+.dropdown-item-subtitle {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.125rem;
+}
+
+.dropdown-item.selected .dropdown-item-subtitle {
+    color: #d1d5db;
+}
+
+.dropdown-no-results {
+    padding: 0.75rem;
+    text-align: center;
+    color: #9ca3af;
+    font-size: 0.875rem;
+}
+
+/* Trip Type Toggle */
+.trip-type-btn {
+    color: #6b7280;
+    background: transparent;
+}
+
+.trip-type-btn.active {
+    background-color: #1e3a5f;
+    color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Form validation states */
+.form-group input.error,
+.form-group .dropdown-input.error {
+    border-color: #ef4444;
+    background-color: #fef2f2;
+}
+
+.form-group input.error:focus,
+.form-group .dropdown-input.error:focus {
+    ring-color: #ef4444;
+}
+
+/* Loading animation */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.loading-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Fuel type badges */
+.fuel-badge {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.fuel-badge-nafta {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.fuel-badge-ultra {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+.fuel-badge-infinia {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+/* Price cards */
+.price-card {
+    background-color: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.price-card-label {
+    font-size: 0.625rem;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.price-card-value {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .dropdown-list {
+        max-height: 200px;
+    }
+}
+
+/* Print styles */
+@media print {
+    header, footer, #calculator-form, #loading-state, #error-state {
+        display: none;
+    }
+
+    #results-card {
+        display: block !important;
+        box-shadow: none;
+        border: 1px solid #e5e7eb;
+    }
+}
