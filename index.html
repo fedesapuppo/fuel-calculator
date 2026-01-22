@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Combustible - FAA</title>
+
+    <!-- SEO & Social Meta Tags -->
+    <meta name="description" content="Calculadora de costos de combustible para viajes entre bases de la Fuerza Aérea Argentina">
+
+    <!-- Open Graph / WhatsApp / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fedesapuppo.github.io/fuel-calculator/">
+    <meta property="og:title" content="Calculadora de Combustible - FAA">
+    <meta property="og:description" content="Calcula el costo de combustible para viajes entre bases de la Fuerza Aérea Argentina">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Calculadora de Combustible - FAA">
+    <meta name="twitter:description" content="Calcula el costo de combustible para viajes entre bases de la Fuerza Aérea Argentina">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'faa-blue': '#1e3a5f',
+                        'faa-light': '#3b5998',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-faa-blue text-white shadow-lg">
+        <div class="container mx-auto px-4 py-4">
+            <h1 class="text-xl md:text-2xl font-bold text-center">
+                Calculadora de Combustible
+            </h1>
+            <p class="text-center text-gray-300 text-sm mt-1">Fuerza Aérea Argentina</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-6 max-w-2xl">
+        <!-- Form Card -->
+        <div class="bg-white rounded-lg shadow-md p-4 md:p-6 mb-6">
+            <form id="calculator-form" class="space-y-4">
+                <!-- Origin -->
+                <div class="form-group">
+                    <label for="origin-search" class="block text-sm font-medium text-gray-700 mb-1">
+                        Origen
+                    </label>
+                    <div class="searchable-dropdown" data-dropdown="origin">
+                        <input
+                            type="text"
+                            id="origin-search"
+                            class="dropdown-input w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-faa-light focus:border-transparent"
+                            placeholder="Buscar base de origen..."
+                            autocomplete="off"
+                        >
+                        <input type="hidden" id="origin-value" name="origin" required>
+                        <div class="dropdown-list hidden absolute z-20 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
+                        </div>
+                    </div>
+                    <p class="error-message text-red-500 text-xs mt-1 hidden" id="origin-error">
+                        Seleccione una base de origen
+                    </p>
+                </div>
+
+                <!-- Destination -->
+                <div class="form-group">
+                    <label for="destination-search" class="block text-sm font-medium text-gray-700 mb-1">
+                        Destino
+                    </label>
+                    <div class="searchable-dropdown" data-dropdown="destination">
+                        <input
+                            type="text"
+                            id="destination-search"
+                            class="dropdown-input w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-faa-light focus:border-transparent"
+                            placeholder="Buscar base de destino..."
+                            autocomplete="off"
+                        >
+                        <input type="hidden" id="destination-value" name="destination" required>
+                        <div class="dropdown-list hidden absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
+                        </div>
+                    </div>
+                    <p class="error-message text-red-500 text-xs mt-1 hidden" id="destination-error">
+                        Seleccione una base de destino
+                    </p>
+                </div>
+
+                <!-- Vehicle -->
+                <div class="form-group">
+                    <label for="vehicle-search" class="block text-sm font-medium text-gray-700 mb-1">
+                        Vehículo
+                    </label>
+                    <div class="searchable-dropdown" data-dropdown="vehicle">
+                        <input
+                            type="text"
+                            id="vehicle-search"
+                            class="dropdown-input w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-faa-light focus:border-transparent"
+                            placeholder="Buscar vehículo..."
+                            autocomplete="off"
+                        >
+                        <input type="hidden" id="vehicle-value" name="vehicle" required>
+                        <div class="dropdown-list hidden absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
+                        </div>
+                    </div>
+                    <p class="error-message text-red-500 text-xs mt-1 hidden" id="vehicle-error">
+                        Seleccione un vehículo
+                    </p>
+                </div>
+
+                <!-- Hours Input (for tractors) -->
+                <div class="form-group hidden" id="hours-group">
+                    <label for="hours-input" class="block text-sm font-medium text-gray-700 mb-1">
+                        Horas de operación estimadas
+                    </label>
+                    <input
+                        type="number"
+                        id="hours-input"
+                        min="0.5"
+                        step="0.5"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-faa-light focus:border-transparent"
+                        placeholder="Ej: 4.5"
+                    >
+                    <p class="text-gray-500 text-xs mt-1">
+                        Este vehículo consume combustible por hora de operación
+                    </p>
+                    <p class="error-message text-red-500 text-xs mt-1 hidden" id="hours-error">
+                        Ingrese las horas de operación
+                    </p>
+                </div>
+
+                <!-- Trip Type Toggle -->
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Tipo de viaje
+                    </label>
+                    <div class="flex bg-gray-200 rounded-lg p-1">
+                        <button
+                            type="button"
+                            class="trip-type-btn flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors active"
+                            data-value="one-way"
+                        >
+                            Solo ida
+                        </button>
+                        <button
+                            type="button"
+                            class="trip-type-btn flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors"
+                            data-value="round-trip"
+                        >
+                            Ida y vuelta
+                        </button>
+                    </div>
+                    <input type="hidden" id="trip-type" name="tripType" value="one-way">
+                </div>
+
+                <!-- Submit Button -->
+                <button
+                    type="submit"
+                    id="calculate-btn"
+                    class="w-full bg-faa-blue text-white py-3 px-4 rounded-md font-medium hover:bg-faa-light transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-faa-light disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                    Calcular Costo
+                </button>
+            </form>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading-state" class="hidden">
+            <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-faa-blue mx-auto"></div>
+                <p class="mt-3 text-gray-600">Calculando ruta...</p>
+            </div>
+        </div>
+
+        <!-- Results Card -->
+        <div id="results-card" class="hidden">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="bg-faa-blue text-white px-4 py-3">
+                    <h2 class="font-semibold">Resultado del Cálculo</h2>
+                </div>
+                <div class="p-4 space-y-4">
+                    <!-- Route Info -->
+                    <div class="border-b pb-3">
+                        <p class="text-sm text-gray-500">Ruta</p>
+                        <p class="font-medium" id="result-route">-</p>
+                    </div>
+
+                    <!-- Distance & Duration -->
+                    <div class="grid grid-cols-2 gap-4 border-b pb-3">
+                        <div>
+                            <p class="text-sm text-gray-500">Distancia</p>
+                            <p class="font-medium text-lg" id="result-distance">-</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">Duración estimada</p>
+                            <p class="font-medium text-lg" id="result-duration">-</p>
+                        </div>
+                    </div>
+
+                    <!-- Vehicle & Fuel Info -->
+                    <div class="grid grid-cols-2 gap-4 border-b pb-3">
+                        <div>
+                            <p class="text-sm text-gray-500">Vehículo</p>
+                            <p class="font-medium text-sm" id="result-vehicle">-</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">Combustible</p>
+                            <p class="font-medium" id="result-fuel-type">-</p>
+                        </div>
+                    </div>
+
+                    <!-- Consumption Details -->
+                    <div class="grid grid-cols-2 gap-4 border-b pb-3">
+                        <div>
+                            <p class="text-sm text-gray-500">Litros necesarios</p>
+                            <p class="font-medium text-lg" id="result-liters">-</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">Precio por litro</p>
+                            <p class="font-medium" id="result-price-per-liter">-</p>
+                        </div>
+                    </div>
+
+                    <!-- Total Cost -->
+                    <div class="bg-green-50 -mx-4 -mb-4 px-4 py-4">
+                        <p class="text-sm text-gray-600 mb-1">Costo Total Estimado</p>
+                        <p class="text-3xl font-bold text-green-700" id="result-total-cost">-</p>
+                        <p class="text-xs text-gray-500 mt-1" id="result-trip-type">-</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error State -->
+        <div id="error-state" class="hidden">
+            <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                <div class="flex items-start">
+                    <svg class="w-5 h-5 text-red-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                    </svg>
+                    <div class="ml-3">
+                        <h3 class="text-sm font-medium text-red-800">Error</h3>
+                        <p class="text-sm text-red-700 mt-1" id="error-message">-</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fuel Prices Info -->
+        <div class="mt-6 bg-white rounded-lg shadow-md p-4">
+            <h3 class="font-medium text-gray-700 mb-2">Precios de Combustible YPF</h3>
+            <div class="grid grid-cols-3 gap-2 text-sm" id="fuel-prices-display">
+                <!-- Filled by JavaScript -->
+            </div>
+            <p class="text-xs text-gray-400 mt-2" id="prices-last-updated">-</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-200 py-4 mt-8">
+        <div class="container mx-auto px-4 text-center text-sm text-gray-600">
+            <p>Precios actualizados mensualmente desde naftas.com.ar</p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
