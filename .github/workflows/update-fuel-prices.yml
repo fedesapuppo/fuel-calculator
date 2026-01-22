@@ -1,0 +1,53 @@
+name: Update Fuel Prices
+
+on:
+  # Run on the 1st of every month at 10:00 AM UTC (7:00 AM Argentina time)
+  schedule:
+    - cron: '0 10 1 * *'
+  # Allow manual trigger
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-prices:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4
+
+      - name: Run fuel price scraper
+        run: python scripts/scrape_fuel_prices.py
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if git diff --quiet data/fuel_prices.json; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "No price changes detected"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Price changes detected"
+          fi
+
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.changed == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update fuel prices from naftas.com.ar"
+          file_pattern: data/fuel_prices.json
+          commit_user_name: "GitHub Actions Bot"
+          commit_user_email: "actions@github.com"
+          commit_author: "GitHub Actions Bot <actions@github.com>"
